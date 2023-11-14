@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import * as categoriesServices from "../utilities/categories-service";
-import { MdDriveFileRenameOutline } from "react-icons/md";
 import { IconContext } from 'react-icons';
+import { MdDriveFileRenameOutline } from "react-icons/md";
 import { CiTimer } from "react-icons/ci";
 import { MdOutlinePriorityHigh } from "react-icons/md";
 import './CategoryForm.css'
@@ -45,24 +45,24 @@ const CategoryForm = ({ categories, setCategories, times, priorities}) => {
                 </div>
                 </IconContext.Provider>
                 <IconContext.Provider value={{ color: "white", size: "1.5em" }}>
-                <label className="time-field">
+                <div className="time-field">
                     <CiTimer />
                     <select name="time" onChange={_handleChange } value={newCategory.time}>
                         {times.map((time, index) => (
                             <option key={index} value={time}>{time}</option>
                         ))}
                     </select>
-                </label>
+                </div>
                 </IconContext.Provider>
                 <IconContext.Provider value={{ color: "white", size: "1.5em", style: { height: '2em'}}}>
-                <label className="priority-field">
+                <div className="priority-field">
                     <MdOutlinePriorityHigh />
                     <select name="priority" onChange={_handleChange } value={newCategory.priority}>
                         {priorities.map((priority, index) => (
                             <option key={index} value={priority}>{priority}</option>
                         ))}
                     </select>
-                </label>
+                </div>
                 </IconContext.Provider>
                 <button>Add Category</button>
             </form>

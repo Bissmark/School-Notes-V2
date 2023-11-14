@@ -1,6 +1,11 @@
 import { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import * as tasksServices from '../utilities/tasks-service';
+import { IconContext } from 'react-icons';
+import { MdDriveFileRenameOutline } from "react-icons/md";
+import { BiCategory } from "react-icons/bi";
+import { MdOutlineDescription } from "react-icons/md";
+import { GoImage } from "react-icons/go";
 import './TasksForm.css';
 
 export default function TaskForm ({tasks, setTasks, categories, uploadImage, setCategories }) {
@@ -74,34 +79,30 @@ export default function TaskForm ({tasks, setTasks, categories, uploadImage, set
         <div className="task-form">
             <h1>Add Task</h1>
             <form onSubmit={ _handleSubmit }>
-                <label>
-                    Name: <input type="text" name="name" value={newTask.name}  onChange={_handleChange} required />
-                </label>
-                <label>
-                    Description: <input type="text" name="description" value={newTask.description}  onChange={_handleChange} required />
-                </label>
-                <label>
-                    Category: 
+                <div className="name-field">
+                    <MdDriveFileRenameOutline />
+                    <input type="text" name="name" value={newTask.name}  onChange={_handleChange} required placeholder="Name..." />
+                </div>
+                <div className="description-field">
+                    <MdOutlineDescription />
+                    <input type="text" name="description" value={newTask.description}  onChange={_handleChange} required placeholder="Description..." />
+                </div>
+                <IconContext.Provider value={{ color: "white", size: "1.5em" }}>
+                <div className="category-field">
+                    <BiCategory />
                     <select name="category" onChange={_handleCategoryChange }>
-                    {categories.map((category, index) => (
-                        <option key={index} value={category._id}>{category.name}</option>
-                    ))}
-                </select>
-                </label>
-                
-                {/* <select name="time" onChange={_handleChange }>
-                    {times.map((time, index) => (
-                        <option key={index} value={time} defaultValue={time}>{time}</option>
-                    ))}
-                </select>
-                <select name="priority" onChange={_handleChange }>
-                    {priorities.map((priority, index) => (
-                        <option key={index} value={priority}>{priority}</option>
-                    ))}
-                </select> */}
-                <label>
-                    Image: <input type="file" onChange={_handleImageChange} />
-                </label>
+                        {categories.map((category, index) => (
+                            <option key={index} value={category._id}>{category.name}</option>
+                        ))}
+                    </select>
+                </div>
+                </IconContext.Provider>
+                <IconContext.Provider value={{ color: "white", size: "1.5em" }}>
+                    <div className="image-field">
+                        <GoImage />
+                        <input type="file" onChange={_handleImageChange} />
+                    </div>
+                </IconContext.Provider>
                 <button>Add Task</button>
             </form>
         </div>
