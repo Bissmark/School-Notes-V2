@@ -5,7 +5,6 @@ import * as categoriesServices from '../utilities/categories-service';
 import Draggable from 'react-draggable';
 import './HomePage.css';
 
-
 export default function HomePage({ setCategories, categories, searchQuery }) {
     const [loading, setLoading] = useState(true);
 
@@ -61,6 +60,10 @@ export default function HomePage({ setCategories, categories, searchQuery }) {
         }
     }
 
+    const capitalizeFirst = str => {
+        return str.charAt(0).toUpperCase() + str.slice(1);
+    };
+
 
     if (loading) {
         return (
@@ -95,14 +98,14 @@ export default function HomePage({ setCategories, categories, searchQuery }) {
                                     <div className='category' key={category._id}>
                                         <div className='title'>
                                             <button className='delete-button' onClick={ () => deleteCategory(category) }>&times;</button>
-                                            <h1>{category.name}</h1>
+                                            <h1>{capitalizeFirst(category.name)}</h1>
                                         </div>
                                         <TasksList category={category} searchQuery={searchQuery} />
                                     </div>
                                 </Draggable>
                         ))}
                     </div>
-                    <div style={{borderBottom: '1px solid rgba(0, 0, 0, 0.8)', marginBottom: '-1px', height: '400px', overflowY: 'auto'}}>
+                    <div className='grid-item' style={{borderBottom: '1px solid rgba(0, 0, 0, 0.8)'}}>
                         {quadrant3.map((category) => (
                             <Draggable 
                                 bounds='.grid-bounds'
@@ -113,33 +116,15 @@ export default function HomePage({ setCategories, categories, searchQuery }) {
                                 <div className='category'  key={category._id} >
                                     <div className='title'>
                                         <button className='delete-button' onClick={ () => deleteCategory(category) }>&times;</button>
-                                        <h1>{category.name}</h1>
+                                        <h1>{capitalizeFirst(category.name)}</h1>
                                     </div>
                                     <TasksList category={category} searchQuery={searchQuery} />
                                 </div>
                             </Draggable>
                         ))}
                     </div>
-                        <div style={{borderTop: '1px solid rgba(0, 0, 0, 0.8)', height: '400px', overflowY: 'auto'}}>
-                                {quadrant2.map((category) => (
-                                    <Draggable 
-                                        bounds='.grid-bounds'
-                                        defaultPosition={category.position || { x: 0, y: 0 }}
-                                        onStop={(e, data) => handleDragStop(category, { x: data.x, y: data.y })}
-                                        key={category._id}
-                                    >
-                                        <div className='category' key={category._id}>
-                                            <div className='title'>
-                                                <button className='delete-button' onClick={ () => deleteCategory(category) }>&times;</button>
-                                                <h1>{category.name}</h1>
-                                            </div>
-                                            <TasksList  category={category} searchQuery={searchQuery} />
-                                        </div>
-                                    </Draggable>
-                                ))}
-                        </div>
-                        <div style={{borderLeft: '1px solid rgba(0, 0, 0, 0.8)', marginLeft: '-1px', height: '400px', overflowY: 'auto'}}>
-                            {quadrant4.map((category) => (
+                    <div className='grid-item' style={{borderTop: '1px solid rgba(0, 0, 0, 0.8)'}}>
+                            {quadrant2.map((category) => (
                                 <Draggable 
                                     bounds='.grid-bounds'
                                     defaultPosition={category.position || { x: 0, y: 0 }}
@@ -149,14 +134,32 @@ export default function HomePage({ setCategories, categories, searchQuery }) {
                                     <div className='category' key={category._id}>
                                         <div className='title'>
                                             <button className='delete-button' onClick={ () => deleteCategory(category) }>&times;</button>
-                                            <h1>{category.name}</h1>
+                                            <h1>{capitalizeFirst(category.name)}</h1>
                                         </div>
-                                        <TasksList category={category} searchQuery={searchQuery} />
+                                        <TasksList  category={category} searchQuery={searchQuery} />
                                     </div>
                                 </Draggable>
                             ))}
-                        </div>    
                     </div>
+                    <div className='grid-item' style={{borderLeft: '1px solid rgba(0, 0, 0, 0.8)'}}>
+                        {quadrant4.map((category) => (
+                            <Draggable 
+                                bounds='.grid-bounds'
+                                defaultPosition={category.position || { x: 0, y: 0 }}
+                                onStop={(e, data) => handleDragStop(category, { x: data.x, y: data.y })}
+                                key={category._id}
+                            >
+                                <div className='category' key={category._id}>
+                                    <div className='title'>
+                                        <button className='delete-button' onClick={ () => deleteCategory(category) }>&times;</button>
+                                        <h1>{capitalizeFirst(category.name)}</h1>
+                                    </div>
+                                    <TasksList category={category} searchQuery={searchQuery} />
+                                </div>
+                            </Draggable>
+                        ))}
+                    </div>    
+                </div>
             </div>
         </>
     );
