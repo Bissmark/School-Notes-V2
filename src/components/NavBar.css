@@ -1,0 +1,99 @@
+/* Google Fonts */
+@import url(https://fonts.googleapis.com/css?family=Anonymous+Pro);
+
+.navbar {
+    display: flex; /* Displays the navbar links below each other instead of side by side */
+    padding: 20px; /* Add some padding inside the navbar */
+    background-color: #9C5CAD;
+    margin-bottom: 30px;
+}
+
+.menu-1 {
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+}
+
+.menu-1 input {
+    width: 25em;
+    padding: 5px 10px;
+}
+
+.nav-links {
+    display: flex;
+    justify-content: end;
+    width: 100%;
+    list-style: none;
+}
+
+.link {
+    display: flex;
+    align-items: center;
+    color: #fff;
+    font-size: 2rem;
+    margin: 0 1rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.5rem;
+    background-color: #FE6971;
+    position: relative;
+    &:hover {
+      background-color: #FC8255;
+      color: #9C5CAD;
+    }
+}
+
+.tooltiptext {
+    visibility: hidden;
+    width: max-content;
+    background-color: #FE6971;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 7px 15px;
+    font-size: 1rem;
+
+    position: absolute;
+    z-index: 1;
+    top: 40px;
+    right: -20px;
+}
+
+.link:hover .tooltiptext {
+    visibility: visible;
+}
+
+.menu {
+    display: flex;
+    font-size: 18px;
+}
+
+input[type=checkbox] { /* Hides the checkbox input */
+    display: none;
+}
+
+.hamburger {
+    display: none;
+    user-select: none;
+}
+
+@media (max-width: 1200px) {
+    .menu {
+        display: none;
+        position: absolute;
+        background-color: purple;
+        right: 0;
+        top: 70px;
+        text-align: right;
+        padding: 16px 0;
+        border-radius: 5px;
+    }
+
+    input[type="checkbox"]:checked ~ .menu {
+        display: block;
+    }
+
+    .hamburger {
+        display: block;
+        cursor: pointer;
+    }
+}

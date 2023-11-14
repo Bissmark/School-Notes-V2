@@ -1,0 +1,37 @@
+.task {
+    position: relative;
+    display: block;
+}
+
+.task li {
+    color: white;
+    font-size: 20px;
+    margin: 10px;
+    padding: 10px;
+    background-color: #00B5B5;
+    border-radius: 10px;
+    text-align: center;
+    list-style-type: none;
+    position: relative;
+    z-index: 1;
+}
+
+.task li:hover {
+    background-color: #1DCFA2;
+}
+
+.task button {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.task a {
+    color: white;
+    text-decoration: none;
+    display: block;
+}
+
+.task a:hover {
+    color: #FFBB56;
+}

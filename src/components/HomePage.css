@@ -1,0 +1,140 @@
+h1 {
+    margin-bottom: 10px;
+}
+
+.category {
+    /* position: relative; */
+    border: 3px solid #FE6971;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    height: 175px;
+    width: 150px;
+    margin-top: 20px;
+    margin-left: 30px;
+    margin-right: 50px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+}
+
+.category-button {
+    background-color: #00B5B5;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    margin-left: 30px;
+}
+
+.category h1 {
+    font-size: 11px;
+    color: #EC6693;
+    margin: 0 auto;
+    margin-top: 5px;
+    display: flex;
+    align-items: center;
+    font-size: 20px;
+}
+
+.category-button {
+    margin-bottom: 20px;
+}
+
+.category-button:hover {
+    background-color: #1DCFA2;
+    color: white;
+}
+
+.category-button a {
+    color: white;
+    text-decoration: none;
+}
+
+
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    min-height: 100%;
+    max-width: 100%;
+}
+
+
+
+/* Hortizontal Arrows */
+.grid-container.horizontal::before {
+    content: '';
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    border-right: 20px solid black;
+    position: absolute;
+    left: -1%;
+    bottom: 47.5%;
+    transform: translateY(-50%);
+}
+
+.grid-container.horizontal::after {
+    content: '';
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    border-left: 20px solid black;
+    position: absolute;
+    right: -1%;
+    bottom: 47.5%;
+    transform: translateY(-50%);
+}
+
+/* Vertical Arrows */
+.grid-container.vertical::before  {
+    content: '';
+    border-top: 20px solid black;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    position: absolute;
+    left: 49.9%;
+    bottom: 47.5;
+    transform: translateX(-50%);
+}
+
+.grid-container.vertical::after {
+    content: '';
+    border-bottom: 20px solid black;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    position: absolute;
+    right: 48%;
+    top: -103%;
+    transform: translateX(-50%);
+}
+
+.grid-item {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    height: 400px;
+}
+
+.delete-button {
+    background-color: #FFBB56;
+    border: none;
+    color: white;
+    padding: 3px 5px;
+    cursor: pointer;
+}
+
+.delete-button:hover {
+    background-color: #FC8255;
+    color: white;
+}
+
+.title {
+    display: flex;
+    gap: 1px;
+}
+
+.grid-bounds {
+    max-width: 1000px;
+    height: 800px;
+}

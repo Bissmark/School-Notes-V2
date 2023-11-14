@@ -1,0 +1,16 @@
+.task-form {
+    background-color: #1DCFA2;
+    height: 400px;
+    padding: 100px 0;
+    margin: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px 3px #EC6693;
+    text-align: center;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+}

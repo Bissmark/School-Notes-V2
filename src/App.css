@@ -1,0 +1,24 @@
+/* Yellow - FFBB56
+Verigris - 00B5B5
+Mint - 1DCFA2
+Coral - FC8255
+Light Red - FE6971
+Cyclamen - EC6693
+Purpureus - 9C5CAD */
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+    color: #00B5B5; 
+    font-family: 'Anonymous Pro', monospace;
+}
+
+.container {
+  text-align: center;
+  max-width: 960px;
+  margin: 0 auto;
+}
