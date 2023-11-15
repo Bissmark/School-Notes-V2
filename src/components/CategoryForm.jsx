@@ -35,8 +35,8 @@ const CategoryForm = ({ categories, setCategories, times, priorities}) => {
     }
 
     return (
-        <div className="test">
-            <form onSubmit={_handleSubmit} className="category-form">
+        <div className="category-form">
+            <form onSubmit={_handleSubmit}>
                 <h1>Add Category</h1>
                 <IconContext.Provider value={{ color: "white", size: "2.5em" }}>
                 <div className="name-field">

@@ -1,11 +1,7 @@
-.test {
+.category-form {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 80vh;
-}
-
-.category-form {
     height: 30em;
     width: 25em;
     background-color: #EC6693;

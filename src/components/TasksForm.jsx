@@ -77,17 +77,18 @@ export default function TaskForm ({tasks, setTasks, categories, uploadImage, set
 
     return (
         <div className="task-form">
-            <h1>Add Task</h1>
             <form onSubmit={ _handleSubmit }>
-                <div className="name-field">
+                <h1>Add Task</h1>
+                <IconContext.Provider value={{ color: "white", size: "2.5em" }}>
+                <div className="name-field-tasks">
                     <MdDriveFileRenameOutline />
                     <input type="text" name="name" value={newTask.name}  onChange={_handleChange} required placeholder="Name..." />
                 </div>
+                
                 <div className="description-field">
                     <MdOutlineDescription />
                     <input type="text" name="description" value={newTask.description}  onChange={_handleChange} required placeholder="Description..." />
                 </div>
-                <IconContext.Provider value={{ color: "white", size: "1.5em" }}>
                 <div className="category-field">
                     <BiCategory />
                     <select name="category" onChange={_handleCategoryChange }>
@@ -96,11 +97,10 @@ export default function TaskForm ({tasks, setTasks, categories, uploadImage, set
                         ))}
                     </select>
                 </div>
-                </IconContext.Provider>
-                <IconContext.Provider value={{ color: "white", size: "1.5em" }}>
                     <div className="image-field">
                         <GoImage />
-                        <input type="file" onChange={_handleImageChange} />
+                        <input type="file" id="files" className="hidden" onChange={_handleImageChange} />
+                        <label htmlFor="files">Select File</label>
                     </div>
                 </IconContext.Provider>
                 <button>Add Task</button>

@@ -17,29 +17,19 @@ label {
     font-size: 20px;
 }
 
-.email {
+.email, .password {
     display: flex;
     border: 1px solid #b2b2b2;
+    margin: 0 auto;
     width: 13em; /* makes it so the email doesnt stretch from left to right */
     border-radius: 5px; /* rounds the corners */
+}
+
+.email {
     margin-bottom: 2em;
 }
 
-.email input {
-    border: none; /* removes the border */
-    outline: none; /* removes the blue outline when clicked */
-    padding: 10px;  /* So the placeholder doesnt start bumped up against the border-left */
-    border-left: 1px solid #b2b2b2;
-}
-
-.password {
-    display: flex;
-    border: 1px solid #b2b2b2;
-    width: 13em; /* makes it so the password doesnt stretch from left to right */
-    border-radius: 5px; /* rounds the corners */
-}
-
-.password input {
+.email input, .password input {
     border: none; /* removes the border */
     outline: none; /* removes the blue outline when clicked */
     padding: 10px;  /* So the placeholder doesnt start bumped up against the border-left */
