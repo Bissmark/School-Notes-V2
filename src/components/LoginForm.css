@@ -20,7 +20,8 @@ label {
 .email, .password {
     display: flex;
     border: 1px solid #b2b2b2;
-    /* width: 12.5em;  */
+    width: 13em; 
+    margin: 0 auto;
     border-radius: 5px; /* rounds the corners */
 }
 
@@ -32,6 +33,6 @@ label {
     border: none; /* removes the border */
     outline: none; /* removes the blue outline when clicked */
     padding: 10px;  /* So the placeholder doesnt start bumped up against the border-left */
-    width: 12.5em;
+    width: 13em;
     border-left: 1px solid #b2b2b2;
 }
