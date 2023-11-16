@@ -9,7 +9,7 @@ import { MdOutlineDescription } from "react-icons/md";
 import { GoImage } from "react-icons/go";
 import './TasksForm.css';
 
-export default function TaskForm ({tasks, setTasks, categories, uploadImage, setCategories }) {
+export default function TaskForm ({tasks, setTasks, categories, uploadImage, setCategories, closeTaskForm }) {
     const [newTask, setNewTask] = useState({
         name: '',
         description: '',
@@ -92,6 +92,7 @@ export default function TaskForm ({tasks, setTasks, categories, uploadImage, set
             addTaskToCategory(selectedCategoryId, newTask);
             setNewTask({name: '', description: '', time: '', priority: '', date: '', image: ''});
             setImage('');
+            closeTaskForm();
             navigate('/');
         } catch (error) {
             console.log(error);

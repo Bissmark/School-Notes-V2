@@ -28,14 +28,14 @@ export default function NavBar({ user, setUser, categories, setSearchQuery }) {
           <AiOutlineHome />
           <span className='tooltiptext'>Home</span>
         </Link>
-        { categories.length > 0 && <Link className='link' to="/tasks/new">
+        {/* { categories.length > 0 && <Link className='link' to="/tasks/new">
           <BsFileEarmarkPlus />
           <span className='tooltiptext'>New Task</span>
         </Link>}
         <Link className='link' to="/categories/new">
           <FiFolderPlus />
           <span className='tooltiptext'>New Category</span>
-        </Link>
+        </Link> */}
         { user ? 
           <Link className='link' onClick={handleLogOut}>
             <GoSignOut />

@@ -7,7 +7,7 @@ import { CiTimer } from "react-icons/ci";
 import { MdOutlinePriorityHigh } from "react-icons/md";
 import './CategoryForm.css'
 
-const CategoryForm = ({ categories, setCategories, times, priorities}) => {
+const CategoryForm = ({ categories, setCategories, times, priorities, closeCategoryForm}) => {
     const [newCategory, setNewCategory] = useState({
         name: '',
         time: 'Slow',
@@ -31,6 +31,7 @@ const CategoryForm = ({ categories, setCategories, times, priorities}) => {
         e.preventDefault();
         addCategory(newCategory);
         setNewCategory({name: '', time: 'Slow', priority: 'Low'});
+        closeCategoryForm();
         navigate('/')
     }
 
