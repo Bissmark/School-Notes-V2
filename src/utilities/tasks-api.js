@@ -24,6 +24,5 @@ export async function updateTask(task) {
 
 // AddTaskToCategory
 export async function addTaskToCategory(categoryId, taskText) {
-    console.log(categoryId, taskText)
     return sendRequest(BASE_URL, "POST", {categoryId, taskText});
 }

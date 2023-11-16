@@ -1,11 +1,17 @@
 .task-background {
     background-color: #1DCFA2;
-    height: 400px;
-    padding: 100px 0;
-    margin: 20px;
+    height: 35em;
+    margin-top: 20em;
     border-radius: 10px;
     box-shadow: 0 0 10px 3px #EC6693;
     text-align: center;
+}
+
+.task-background h1 {
+    color: white;
+    font-size: 46px;
+    margin-bottom: 1em;
+    padding: 1em;
 }
 
 .edit-button {
@@ -42,6 +48,7 @@
     font-size: 16px;
     cursor: pointer;
     margin-left: 30px;
+    margin-top: 2em;
 }
 
 .button-delete:hover {
@@ -63,6 +70,28 @@ li p {
     color: #9C5CAD;
 }
 
-ul {
+.details-page {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.ul-tasks {
+    background-color: #9C5CAD;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px 3px #EC6693;
+    text-align: left;
     list-style-type: none;
+}
+
+.ul-tasks p {
+    color: #1DCFA2;
+}
+
+img {
+    width: 200px;
+    height: 200px;
+    border-radius: 10%;
 }

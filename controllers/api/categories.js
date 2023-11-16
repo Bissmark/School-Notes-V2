@@ -25,7 +25,6 @@ async function show(req, res) {
         const category = await Category.findById(req.params.id);
         const tasks = await Task.find({category: req.params.id});
         category.tasks = tasks;
-        console.log(category);
         res.json(category);
     } catch (err) {
         console.log(err);
@@ -34,7 +33,6 @@ async function show(req, res) {
 }
 
 async function create(req, res) {
-    console.log(req.body);
     try {
         const category = await Category.create({
             name: req.body.name,
@@ -69,8 +67,6 @@ async function updatePositions(req, res) {
             { $set: { "position.x": x, "position.y": y } },
             { new: true } // This option returns the updated document
         );
-
-        console.log(category);
         res.json(category);
     } catch (err) {
         console.log(err);

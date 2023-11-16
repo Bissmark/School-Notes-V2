@@ -1,0 +1,13 @@
+.edit-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-width: 25em;
+    background-color: #EC6693;
+    margin: 0 auto;
+    border-radius: 10px;
+    box-shadow: 0 0 10px 3px #FE6971;
+    padding: 20px;
+    margin-top: 20em;
+}

@@ -21,6 +21,7 @@ p {
 .username {
     display: flex;
     border: 1px solid #b2b2b2;
+    margin: 0 auto;
     width: 13em; /* makes it so the username doesnt stretch from left to right */
     border-radius: 5px; /* rounds the corners */
     margin-bottom: 2em;
@@ -36,6 +37,7 @@ p {
 .password {
     display: flex;
     border: 1px solid #b2b2b2;
+    margin: 0 auto;
     width: 13em; /* makes it so the password doesnt stretch from left to right */
     border-radius: 5px; /* rounds the corners */
 }
@@ -50,6 +52,7 @@ p {
 .password-confirm {
     display: flex;
     border: 1px solid #b2b2b2;
+    margin: 0 auto;
     width: 13em; /* makes it so the password doesnt stretch from left to right */
     border-radius: 5px; /* rounds the corners */
     margin-top: 2em;

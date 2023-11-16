@@ -18,14 +18,15 @@ export default function HomePage({ setCategories, categories, searchQuery }) {
             try {
                 const categoriesRender = await categoriesServices.getCategories();
                 setCategories(categoriesRender);
-                setLoading(false);
+                //setLoading(false);
             } catch (error) {
                 console.log(error);
+            } finally {
                 setLoading(false);
             }
         };
         fetchCategories()
-    }, []);
+    }, [setCategories]);
 
     async function saveCategoryPositions() {
         try {

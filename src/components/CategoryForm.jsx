@@ -43,8 +43,6 @@ const CategoryForm = ({ categories, setCategories, times, priorities}) => {
                     <MdDriveFileRenameOutline />
                     <input type="text" name="name" value={newCategory.name}  onChange={_handleChange} required placeholder="Name..."/>
                 </div>
-                </IconContext.Provider>
-                <IconContext.Provider value={{ color: "white", size: "1.5em" }}>
                 <div className="time-field">
                     <CiTimer />
                     <select name="time" onChange={_handleChange } value={newCategory.time}>
@@ -53,8 +51,6 @@ const CategoryForm = ({ categories, setCategories, times, priorities}) => {
                         ))}
                     </select>
                 </div>
-                </IconContext.Provider>
-                <IconContext.Provider value={{ color: "white", size: "1.5em", style: { height: '2em'}}}>
                 <div className="priority-field">
                     <MdOutlinePriorityHigh />
                     <select name="priority" onChange={_handleChange } value={newCategory.priority}>
@@ -64,7 +60,7 @@ const CategoryForm = ({ categories, setCategories, times, priorities}) => {
                     </select>
                 </div>
                 </IconContext.Provider>
-                <button>Add Category</button>
+                <button style={{marginBottom: '2em'}}>Add Category</button>
             </form>
         </div>
     )

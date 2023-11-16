@@ -1,24 +1,63 @@
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import * as tasksServices from '../utilities/tasks-service';
+import * as categoriesServices from '../utilities/categories-service';
+import { IconContext } from 'react-icons';
+import { MdDriveFileRenameOutline } from "react-icons/md";
+import { MdOutlineDescription } from "react-icons/md";
+import { BiCategory } from "react-icons/bi";
+import { GoImage } from "react-icons/go";
+import './EditForm.css';
 
-const EditForm = ({ tasks, priorities, times, categories, uploadImage }) => {
+const EditForm = ({ tasks, categories, uploadImage }) => {
     let { id } = useParams();
-    const task = tasks.find((n) => n._id === id);
-    const [editedTask, setEditedTask] = useState(task);
+    const [editedTask, setEditedTask] = useState(null); // Set initial state to null
     const [image, setImage] = useState('');
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
     const navigate = useNavigate();
+    console.log(tasks);
 
     async function updateTask(task) {
-        const editedTask = await tasksServices.updateTask(task);
-        setEditedTask(editedTask);
+        try {
+            const editedTaskResult = await tasksServices.updateTask(task);
+            console.log(editedTaskResult);
+            setEditedTask(editedTaskResult);
+        } catch (error) {
+            setError(error);
+            console.log(error);
+        } finally {
+            setLoading(false);
+        }
     }
+
+    useEffect(() => {
+    const fetchTask = async () => {
+        try {
+            const task = tasks.find((n) => n._id === id);
+            if (task) {
+                // Fetch associated tasks for the category
+                const categoryTasks = await categoriesServices.getCategories();
+                
+                task.tasks = categoryTasks;
+            }
+            setEditedTask(task || { name: '', description: '', category: '', time: '', priority: '', date: '', image: '' });
+        } catch (error) {
+            setError(error);
+            console.log(error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    fetchTask();
+}, [tasks, categories, id]);
 
     function _handleChange(e) {
         setEditedTask({
             ...editedTask,
             [e.target.name]: e.target.value
-        })
+        });
     }
 
     async function _handleSubmit(e) {
@@ -32,44 +71,48 @@ const EditForm = ({ tasks, priorities, times, categories, uploadImage }) => {
             }
             setImage('');
         } catch (error) {
+            setError(error);
             console.log(error);
         }
         updateTask(editedTask);
-        navigate(`/tasks/${task._id}`);
+        navigate(`/tasks/${id}`);
     }
+
+    if (loading) {
+        return <p>Loading...</p>;
+    }
+
+    if (error) {
+        return <p>Error: {error.message}</p>;
+    }
+
     return (
-        <div>
-            <h1>Edit Form</h1>
+        <div className="edit-form">
             <form onSubmit={ _handleSubmit }>
-                <label>
-                    Task Name: <input type="text" name="name" value={editedTask.name}  onChange={_handleChange} required />
-                </label>
-                <label>
-                    Task Description: <input type="text" name="description" value={editedTask.description}  onChange={_handleChange} required />
-                </label>
-                <label>
-                    Task Category:
+                <h1>Edit Form</h1>
+                <IconContext.Provider value={{ color: "white", size: "2.5em" }}>
+                <div className="name-field-tasks">
+                    <MdDriveFileRenameOutline />
+                    <input type="text" name="name" value={editedTask.name}  onChange={_handleChange} required />
+                </div>
+                <div className="description-field">
+                    <MdOutlineDescription />
+                    <input type="text" name="description" value={editedTask.description}  onChange={_handleChange} required />
+                </div>
+                <div className="category-field">
+                    <BiCategory />
                     <select name="category" value={editedTask.category} onChange={_handleChange }>
                         {categories.map((category, index) => (
                             <option key={index} value={category.name}>{category.name}</option>
                         ))}
                     </select>    
-                </label>
-                
-                {/* <select name="time" value={editedTask.time} onChange={_handleChange }>
-                    {times.map((time, index) => (
-                        <option key={index} value={time}>{time}</option>
-                    ))}
-                </select>
-                <select name="priority" value={editedTask.priority} onChange={_handleChange }>
-                    {priorities.map((priority, index) => (
-                        <option key={index} value={priority}>{priority}</option>
-                    ))}
-                </select> */}
-                <label>
-                    <input type="file" onChange={(e) => setImage(e.target.files[0])} />    
-                </label>
-                
+                </div>
+                <div className="image-field">
+                        <GoImage />
+                        <input type="file" id="files" className="hidden" onChange={(e) => setImage(e.target.files[0])} />
+                        <label htmlFor="files">Select File</label>
+                </div>
+                </IconContext.Provider>
                 <button>Update</button>
             </form>
         </div>

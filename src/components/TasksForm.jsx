@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import * as tasksServices from '../utilities/tasks-service';
+import * as categoriesServices from '../utilities/categories-service';
 import { IconContext } from 'react-icons';
 import { MdDriveFileRenameOutline } from "react-icons/md";
 import { BiCategory } from "react-icons/bi";
@@ -17,10 +18,32 @@ export default function TaskForm ({tasks, setTasks, categories, uploadImage, set
         date: '',
         image: ''
     });
-    const [selectedCategoryId, setSelectedCategoryId] = useState(categories[0]._id);
+    const initialCategoryId = categories.length > 0 ? categories[0]._id : '';
+    const [selectedCategoryId, setSelectedCategoryId] = useState(initialCategoryId);
+    const [isLoading, setIsLoading] = useState(categories.length === 0); // Set loading state initially
 
     const navigate = useNavigate();
     const [image, setImage] = useState('');
+
+    useEffect(() => {
+        const fetchCategories = async () => {
+            try {
+                const categoriesRender = await categoriesServices.getCategories(); // Adjust the function call based on your actual data fetching logic
+                setCategories(categoriesRender);
+                setIsLoading(false);
+            } catch (error) {
+                console.log(error);
+                setIsLoading(false);
+            }
+        };
+
+        if (categories.length === 0) {
+            // Fetch categories only if they are not already present
+            fetchCategories();
+        } else {
+            setIsLoading(false);
+        }
+    }, [categories, setCategories]);
 
     async function addTaskToCategory(categoryId, task) {
         try {
@@ -79,6 +102,9 @@ export default function TaskForm ({tasks, setTasks, categories, uploadImage, set
         <div className="task-form">
             <form onSubmit={ _handleSubmit }>
                 <h1>Add Task</h1>
+                {isLoading ? (
+                    <p>Loading categories...</p>
+                    ) : (
                 <IconContext.Provider value={{ color: "white", size: "2.5em" }}>
                 <div className="name-field-tasks">
                     <MdDriveFileRenameOutline />
@@ -91,9 +117,11 @@ export default function TaskForm ({tasks, setTasks, categories, uploadImage, set
                 </div>
                 <div className="category-field">
                     <BiCategory />
-                    <select name="category" onChange={_handleCategoryChange }>
+                    <select name="category" onChange={_handleCategoryChange}>
                         {categories.map((category, index) => (
-                            <option key={index} value={category._id}>{category.name}</option>
+                            <option key={index} value={category._id}>
+                                {category.name}
+                            </option>
                         ))}
                     </select>
                 </div>
@@ -103,7 +131,8 @@ export default function TaskForm ({tasks, setTasks, categories, uploadImage, set
                         <label htmlFor="files">Select File</label>
                     </div>
                 </IconContext.Provider>
-                <button>Add Task</button>
+                )}
+                <button style={{marginBottom: '2em'}}>Add Task</button>
             </form>
         </div>
     );

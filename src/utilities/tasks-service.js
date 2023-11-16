@@ -32,7 +32,6 @@ export async function updateTask(id) {
 
 // AddTaskToCategory
 export async function addTaskToCategory(categoryId, taskText) {
-    console.log(categoryId, taskText)
     const newTask = await tasksAPI.addTaskToCategory(categoryId, taskText);
     return newTask;
 }

@@ -18,27 +18,7 @@ async function index(req, res) {
         console.log(err);
         res.status(400).json(err);
     }
-}
-
-// async function create(req, res) {
-//     try {
-//         // console.log(req.body)
-//         const task = await Task.create({
-//             name: req.body.name,
-//             // category: req.body.category,
-//             category: req.category.id,
-//             user: req.user._id,
-//             time: req.body.time,
-//             priority: req.body.priority,
-//             image: req.body.image
-//         });
-//         // console.log('Line 35: ' + req.category.id);
-//         res.json(task);
-//     } catch (err) {
-//         console.log(err)
-//         res.status(400).json(err);
-//     }
-// }
+};
 
 async function show(req, res) {
     try {
@@ -48,19 +28,18 @@ async function show(req, res) {
         console.log(err);
         res.status(400).json(err);
     }
-}
+};
 
 
 
 async function deleteTask(req, res) {
     try {
         await Task.deleteOne({_id: req.params.id, user: req.user._id});
-        console.log('delete');
         res.json(true);
     } catch (err) {
         res.status(400).json(err);
     }
-}
+};
 
 async function update(req, res) {
     try {
@@ -70,7 +49,7 @@ async function update(req, res) {
         console.log(err)
         res.status(400).json(err);
     }
-}
+};
 
 async function addTaskToCategory(req, res) {
     try {
@@ -91,4 +70,4 @@ async function addTaskToCategory(req, res) {
         console.log(err);
         res.status(400).json(err);
     }
-}
+};

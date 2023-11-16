@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { getUser } from './utilities/users-service';
+import * as categoriesServices from './utilities/categories-service';
 import AuthPage from './components/AuthPage';
 import NavBar from './components/NavBar';
 import HomePage from './components/HomePage';
@@ -36,7 +37,7 @@ function App() {
 			body: data
 		}).then(res => res.json())
       .catch(err => console.log(err))
-	}
+	};
 
   return (
     <div>

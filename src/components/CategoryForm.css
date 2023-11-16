@@ -1,13 +1,19 @@
+body {
+    height: 100vh;
+}
+
 .category-form {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 30em;
-    width: 25em;
+    max-width: 25em;
     background-color: #EC6693;
     margin: 0 auto;
     border-radius: 10px;
     box-shadow: 0 0 10px 3px #FE6971;
+    padding: 20px;
+    margin-top: 20em;
 }
 
 .category-form h1 {
@@ -42,14 +48,16 @@ select {
 .time-field {
     display: flex;
     border-radius: 5px;
-    margin-bottom: 2em;
+    width: 13em;
     border: 1px solid #b2b2b2;
     overflow: hidden;
+    margin-bottom: 2em;
 }
 
 .priority-field {
     display: flex;
     border: 1px solid #b2b2b2;
+    width: 13em;
     border-radius: 5px;
     margin-bottom: 2em;
 }
