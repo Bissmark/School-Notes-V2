@@ -22,7 +22,7 @@ p {
     display: flex;
     border: 1px solid #b2b2b2;
     margin: 0 auto;
-    width: 13em; /* makes it so the username doesnt stretch from left to right */
+    width: 12.5em; /* makes it so the username doesnt stretch from left to right */
     border-radius: 5px; /* rounds the corners */
     margin-bottom: 2em;
 }
@@ -53,7 +53,7 @@ p {
     display: flex;
     border: 1px solid #b2b2b2;
     margin: 0 auto;
-    width: 13em; /* makes it so the password doesnt stretch from left to right */
+    width: 12.5em; /* makes it so the password doesnt stretch from left to right */
     border-radius: 5px; /* rounds the corners */
     margin-top: 2em;
 }

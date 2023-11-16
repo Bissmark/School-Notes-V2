@@ -34,7 +34,6 @@ const CategoryForm = ({ categories, setCategories, times, priorities, closeCateg
         closeCategoryForm();
         navigate('/')
     }
-
     return (
         <div className="category-form">
             <form onSubmit={_handleSubmit}>

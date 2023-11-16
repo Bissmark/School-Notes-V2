@@ -13,8 +13,8 @@ export default function LoginForm({ setUser, showSignup, setShowSignup }) {
   });
   const [error, setError] = useState('');
 
-  function handleChange(evt) {
-    setCredentials({ ...credentials, [evt.target.name]: evt.target.value });
+  function handleChange(e) {
+    setCredentials({ ...credentials, [e.target.name]: e.target.value });
     setError('');
   }
 
@@ -35,7 +35,6 @@ export default function LoginForm({ setUser, showSignup, setShowSignup }) {
         <h1 style={{ marginBottom: '1em'}}>{showSignup ? 'Sign Up Page' : 'Login Page'}</h1>
         <form autoComplete="off" onSubmit={handleSubmit}>
           <div className='email'>
-            {/* <img src={AiOutlineMail} alt="" /> */}
             <AiOutlineMail />
             <input type="text" name="email" value={credentials.email} onChange={handleChange} required placeholder='Email'/>
           </div>

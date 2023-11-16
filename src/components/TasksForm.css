@@ -14,7 +14,7 @@
 .name-field-tasks {
     display: flex;
     border: 1px solid #b2b2b2;
-    width: 13em; /* makes it so the name-field doesnt stretch from left to right */
+    /* width: 13em; makes it so the name-field doesnt stretch from left to right */
     border-radius: 5px; /* rounds the corners */
     margin-bottom: 2em;
 }
@@ -23,13 +23,14 @@
     border: none; /* removes the border */
     outline: none; /* removes the blue outline when clicked */
     padding: 10px;  /* So the placeholder doesnt start bumped up against the border-left */
+    width: 12.5em;
     border-left: 1px solid #b2b2b2;
 }
 
 .description-field {
     display: flex;
     border: 1px solid #b2b2b2;
-    width: 13em; /* makes it so the name-field doesnt stretch from left to right */
+    /* width: 13em; makes it so the name-field doesnt stretch from left to right */
     border-radius: 5px; /* rounds the corners */
     margin-bottom: 2em;
 }
@@ -38,6 +39,7 @@
     border: none; /* removes the border */
     outline: none; /* removes the blue outline when clicked */
     padding: 10px;  /* So the placeholder doesnt start bumped up against the border-left */
+    width: 12.5em;
     border-left: 1px solid #b2b2b2;
 }
 
