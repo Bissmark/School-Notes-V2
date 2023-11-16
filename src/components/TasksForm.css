@@ -1,8 +1,3 @@
-body {
-    height: 100vh;
-}
-
-
 .task-form {
     display: flex;
     flex-direction: column;
@@ -14,7 +9,6 @@ body {
     border-radius: 10px;
     box-shadow: 0 0 10px 3px #FE6971;
     padding: 20px;
-    margin-top: 20em;
 }
 
 .name-field-tasks {

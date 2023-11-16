@@ -3,10 +3,14 @@ import { Link} from 'react-router-dom';
 import TasksList from './TasksList';
 import * as categoriesServices from '../utilities/categories-service';
 import Draggable from 'react-draggable';
+import CategoryForm from './CategoryForm';
+import TasksForm from './TasksForm';
 import './HomePage.css';
 
-export default function HomePage({ setCategories, categories, searchQuery }) {
+export default function HomePage({ setCategories, categories, searchQuery, times, priorities }) {
     const [loading, setLoading] = useState(true);
+    const [showCategoryForm, setShowCategoryForm] = useState(false);
+    const [showTaskForm, setShowTaskForm] = useState(false);
 
     const quadrant1 = categories.filter((category) => category.time === 'Slow' && category.priority === 'Low');
     const quadrant2 = categories.filter((category) => category.time === 'Fast' && category.priority === 'Low');
@@ -18,7 +22,6 @@ export default function HomePage({ setCategories, categories, searchQuery }) {
             try {
                 const categoriesRender = await categoriesServices.getCategories();
                 setCategories(categoriesRender);
-                //setLoading(false);
             } catch (error) {
                 console.log(error);
             } finally {
@@ -59,7 +62,15 @@ export default function HomePage({ setCategories, categories, searchQuery }) {
         } catch (error) {
             console.log(error);
         }
-    }
+    };
+
+    const toggleCategoryForm = () => {
+        setShowCategoryForm(!showCategoryForm);
+    };
+
+    const toggleTaskForm = () => {
+        setShowTaskForm(!showTaskForm);
+    };
 
     const capitalizeFirst = str => {
         return str.charAt(0).toUpperCase() + str.slice(1);
@@ -77,16 +88,37 @@ export default function HomePage({ setCategories, categories, searchQuery }) {
     return (
         <>
             <h1>Home Page</h1> 
-            <div> { categories.length > 0 && 
-                <Link to='/tasks/new'>
-                    <button className='category-button'>Add Task</button>
-                </Link>
+            <div className='category-task-buttons'> { categories.length > 0 && 
+                <button className='category-button' onClick={toggleTaskForm}>Add Task</button>
             }
-                <Link to='/categories/new'>
-                    <button className='category-button'>Add Category</button>
-                </Link>
+                <button className='category-button' onClick={toggleCategoryForm}>Add Category</button>
             </div>
+            <div className='home-container'>
+            {showCategoryForm && ( // Conditionally render CategoryForm
+                <div className="category-form-container">
+                    <CategoryForm
+                        categories={categories}
+                        setCategories={setCategories}
+                        times={times}
+                        priorities={priorities}
+                    />
+                </div>
+            )}
+
+            {showTaskForm && ( // Conditionally render CategoryForm
+                <div className="category-form-container">
+                    <TasksForm
+                        categories={categories}
+                        setCategories={setCategories}
+                        times={times}
+                        priorities={priorities}
+                    />
+                </div>
+            )}
+
+            
             <div className='grid-bounds'>
+                
                 <div className='grid-container horizontal'>
                     <p style={{ color: 'black', position: 'absolute', left: '55%', top: '-5%'}}>Time: Slow</p>
                     <p style={{ color: 'black', position: 'absolute', left: '55%', bottom: '0%'}}>Time: Fast</p>
@@ -164,6 +196,7 @@ export default function HomePage({ setCategories, categories, searchQuery }) {
                             </Draggable>
                         ))}
                     </div>    
+                </div>
                 </div>
             </div>
         </>

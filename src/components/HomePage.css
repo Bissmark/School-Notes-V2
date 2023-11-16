@@ -1,5 +1,11 @@
+.home-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr; /* Three columns, one for each section */
+}
+
 h1 {
     margin-bottom: 10px;
+    grid-column: 2;
 }
 
 .category {
@@ -113,6 +119,13 @@ h1 {
 .grid-bounds {
     max-width: 1000px;
     height: 800px;
+    grid-column: 2;
+    grid-row-start: 1;
+}
+
+.category-task-buttons {
+    grid-column: 2;
+    text-align: center;
 }
 
 .grid-item.with-arrows::before {
@@ -135,6 +148,12 @@ h1 {
     right: 48%;
     top: -1%;
     transform: translateX(-50%);
+}
+
+.category-form-container {
+    grid-column: 3;
+    grid-row: 1;
+    align-self: center;
 }
 
 /* New styles for mobile responsiveness */
