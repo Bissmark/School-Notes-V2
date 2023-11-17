@@ -37,7 +37,7 @@ const CategoryForm = ({ categories, setCategories, times, priorities, closeCateg
     return (
         <div className="category-form">
             <form onSubmit={_handleSubmit}>
-                <h1>Add Category</h1>
+                <h1 style={{color: 'white'}}>Add Category</h1>
                 <IconContext.Provider value={{ color: "white", size: "2.5em" }}>
                 <div className="name-field">
                     <MdDriveFileRenameOutline />
@@ -60,7 +60,7 @@ const CategoryForm = ({ categories, setCategories, times, priorities, closeCateg
                     </select>
                 </div>
                 </IconContext.Provider>
-                <button style={{marginBottom: '2em'}}>Add Category</button>
+                <button style={{marginBottom: '2em', width: '100%'}}>Add Category</button>
             </form>
         </div>
     )

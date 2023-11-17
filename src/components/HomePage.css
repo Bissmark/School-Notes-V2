@@ -60,6 +60,12 @@ h1 {
     text-decoration: none;
 }
 
+.grid-bounds {
+    max-width: 1000px;
+    height: 800px;
+    grid-column: 2;
+    grid-row-start: 1;
+}
 
 .grid-container {
     display: grid;
@@ -69,8 +75,8 @@ h1 {
     max-width: 100%;
 }
 
-/* Hortizontal Arrows */
-.grid-container.horizontal::before {
+/* Horizontal Arrows */
+.horizontal::before {
     content: '';
     border-top: 10px solid transparent;
     border-bottom: 10px solid transparent;
@@ -81,7 +87,7 @@ h1 {
     transform: translateY(-50%);
 }
 
-.grid-container.horizontal::after {
+.horizontal::after {
     content: '';
     border-top: 10px solid transparent;
     border-bottom: 10px solid transparent;
@@ -92,9 +98,31 @@ h1 {
     transform: translateY(-50%);
 }
 
+.vertical::before {
+    content: '';
+    border-top: 20px solid black;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    position: absolute;
+    left: 50%;
+    bottom: -1.5%;
+    transform: translateX(-50%);
+}
+
+.vertical::after {
+    content: '';
+    border-bottom: 20px solid black;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    position: absolute;
+    right: 48.7%;
+    top: -1%;
+    transform: translateY(-50%);
+}
+
 .grid-item {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    /* grid-template-columns: 1fr 1fr; */
     height: 400px;
     position: relative;
 }
@@ -117,36 +145,11 @@ h1 {
     gap: 1px;
 }
 
-.grid-bounds {
-    max-width: 1000px;
-    height: 800px;
-    grid-column: 2;
-    grid-row-start: 1;
-}
+
 
 .category-task-buttons {
     text-align: center;
     margin-bottom: 1em;
-}
-
-.grid-item.with-arrows::before {
-    content: '';
-    border-bottom: 20px solid black;
-    border-left: 10px solid transparent;
-    border-right: 10px solid transparent;
-    position: absolute;
-    top: -5%;
-    transform: translateX(-50%);
-}
-
-.grid-item.with-arrows::after {
-    content: '';
-    border-top: 20px solid black;
-    border-left: 10px solid transparent;
-    border-right: 10px solid transparent;
-    position: absolute;
-    bottom: -105%;
-    transform: translateX(-50%);
 }
 
 .category-form-container {

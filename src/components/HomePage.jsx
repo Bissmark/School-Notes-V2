@@ -133,30 +133,30 @@ export default function HomePage({ setCategories, categories, searchQuery, times
             )}
 
             <div className='grid-bounds'>
-                <div className='grid-container horizontal with-arrows'>
+                <div className='grid-container horizontal'>
                     <p style={{ color: 'black', position: 'absolute', left: '55%', top: '-5%'}}>Time: Slow</p>
                     <p style={{ color: 'black', position: 'absolute', left: '55%', bottom: '0%'}}>Time: Fast</p>
                     <p style={{ color: 'black', position: 'absolute', left: '0%', top: '50%' }}>Priority: Low</p>
                     <p style={{ color: 'black', position: 'absolute', right: '0%', top: '50%' }}>Priority: High</p>
-                    <div className='grid-item' style={{borderBottom: '1px solid rgba(0, 0, 0, 0.8)'}}>
+                    <div style={{borderBottom: '1px solid rgba(0, 0, 0, 0.8)'}}>
                         {quadrant1.map((category) => (
-                                <Draggable 
-                                    bounds='.grid-bounds'
-                                    defaultPosition={category.position || { x: 0, y: 0 }}
-                                    onStop={(e, data) => handleDragStop(category, { x: data.x, y: data.y })}
-                                    key={category._id}
-                                >
-                                    <div className='category' key={category._id}>
-                                        <div className='title'>
-                                            <button className='delete-button' onClick={ () => deleteCategory(category) }>&times;</button>
-                                            <h1>{capitalizeFirst(category.name)}</h1>
-                                        </div>
-                                        <TasksList category={category} searchQuery={searchQuery} />
+                            <Draggable 
+                                bounds='.grid-bounds'
+                                defaultPosition={category.position || { x: 0, y: 0 }}
+                                onStop={(e, data) => handleDragStop(category, { x: data.x, y: data.y })}
+                                key={category._id}
+                            >
+                                <div className='category' key={category._id}>
+                                    <div className='title'>
+                                        <button className='delete-button' onClick={ () => deleteCategory(category) }>&times;</button>
+                                        <h1>{capitalizeFirst(category.name)}</h1>
                                     </div>
-                                </Draggable>
+                                    <TasksList category={category} searchQuery={searchQuery} />
+                                </div>
+                            </Draggable>
                         ))}
                     </div>
-                    <div className='grid-item with-arrows' style={{borderBottom: '1px solid rgba(0, 0, 0, 0.8)', borderLeft: '1px solid rgba(0, 0, 0, 0.8)'}}>
+                    <div className='vertical' style={{borderBottom: '1px solid rgba(0, 0, 0, 0.8)', borderLeft: '1px solid rgba(0, 0, 0, 0.8)', height: '400px'}}>
                         {quadrant3.map((category) => (
                             <Draggable 
                                 bounds='.grid-bounds'
@@ -174,7 +174,7 @@ export default function HomePage({ setCategories, categories, searchQuery, times
                             </Draggable>
                         ))}
                     </div>
-                    <div className='grid-item'>
+                    <div style={{height: '400px'}}>
                         {quadrant2.map((category) => (
                             <Draggable 
                                 bounds='.grid-bounds'
@@ -192,7 +192,7 @@ export default function HomePage({ setCategories, categories, searchQuery, times
                             </Draggable>
                         ))}
                     </div>
-                    <div className='grid-item' style={{borderLeft: '1px solid rgba(0, 0, 0, 0.8)'}}>
+                    <div style={{borderLeft: '1px solid rgba(0, 0, 0, 0.8)'}}>
                         {quadrant4.map((category) => (
                             <Draggable 
                                 bounds='.grid-bounds'

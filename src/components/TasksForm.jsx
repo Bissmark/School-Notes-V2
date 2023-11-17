@@ -45,11 +45,23 @@ export default function TaskForm ({tasks, setTasks, categories, uploadImage, set
         }
     }, [categories, setCategories]);
 
+    // useEffect(() => {
+    //     const fetchTasks = async () => {
+    //         try {
+    //             const tasksRender = await tasksServices.getTasks();
+    //             setTasks(tasksRender);
+    //         } catch (error) {
+    //             console.log(error);
+    //         }
+    //     }
+    //     fetchTasks();
+    // }, [setTasks]);
+
     async function addTaskToCategory(categoryId, task) {
         try {
             const addedTask = await tasksServices.addTaskToCategory(categoryId, task);
             // Use functional updates to ensure synchronous state updates
-            setTasks((prevTasks) => [...prevTasks, addedTask]);
+            setTasks([...tasks, addedTask]);
             setCategories((prevCategories) => {
                 return prevCategories.map((category) => {
                     if (category._id === categoryId) {
@@ -102,7 +114,7 @@ export default function TaskForm ({tasks, setTasks, categories, uploadImage, set
     return (
         <div className="task-form">
             <form onSubmit={ _handleSubmit }>
-                <h1>Add Task</h1>
+                <h1 style={{color: 'white'}}>Add Task</h1>
                 {isLoading ? (
                     <p>Loading categories...</p>
                     ) : (
@@ -133,7 +145,7 @@ export default function TaskForm ({tasks, setTasks, categories, uploadImage, set
                     </div>
                 </IconContext.Provider>
                 )}
-                <button style={{marginBottom: '2em'}}>Add Task</button>
+                <button style={{marginBottom: '2em', width: '100%'}}>Add Task</button>
             </form>
         </div>
     );
