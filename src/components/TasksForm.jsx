@@ -9,7 +9,7 @@ import { MdOutlineDescription } from "react-icons/md";
 import { GoImage } from "react-icons/go";
 import './TasksForm.css';
 
-export default function TaskForm ({tasks, setTasks, categories, uploadImage, setCategories, closeTaskForm }) {
+export default function TaskForm ({categories, uploadImage, setCategories, closeTaskForm }) {
     const [newTask, setNewTask] = useState({
         name: '',
         description: '',
@@ -21,7 +21,6 @@ export default function TaskForm ({tasks, setTasks, categories, uploadImage, set
     const initialCategoryId = categories.length > 0 ? categories[0]._id : '';
     const [selectedCategoryId, setSelectedCategoryId] = useState(initialCategoryId);
     const [isLoading, setIsLoading] = useState(categories.length === 0); // Set loading state initially
-
     const navigate = useNavigate();
     const [image, setImage] = useState('');
 
@@ -45,23 +44,11 @@ export default function TaskForm ({tasks, setTasks, categories, uploadImage, set
         }
     }, [categories, setCategories]);
 
-    // useEffect(() => {
-    //     const fetchTasks = async () => {
-    //         try {
-    //             const tasksRender = await tasksServices.getTasks();
-    //             setTasks(tasksRender);
-    //         } catch (error) {
-    //             console.log(error);
-    //         }
-    //     }
-    //     fetchTasks();
-    // }, [setTasks]);
-
     async function addTaskToCategory(categoryId, task) {
         try {
             const addedTask = await tasksServices.addTaskToCategory(categoryId, task);
             // Use functional updates to ensure synchronous state updates
-            setTasks([...tasks, addedTask]);
+            //setTasks([...tasks, addedTask]);
             setCategories((prevCategories) => {
                 return prevCategories.map((category) => {
                     if (category._id === categoryId) {
@@ -94,14 +81,16 @@ export default function TaskForm ({tasks, setTasks, categories, uploadImage, set
     
     const _handleSubmit = async (e) => {
         e.preventDefault();
-        if (image) {
-            const data = await uploadImage(image);
-            newTask.image = data.url;
-        } else {
-            setImage('');
-        }
+        
         try {
-            addTaskToCategory(selectedCategoryId, newTask);
+            if (image) {
+                const data = await uploadImage(image);
+                newTask.image = data.url;
+            } else {
+                setImage('');
+            }
+            await addTaskToCategory(selectedCategoryId, newTask);
+            //setTasks((prevTasks) => [...prevTasks, addedTask]);
             setNewTask({name: '', description: '', time: '', priority: '', date: '', image: ''});
             setImage('');
             closeTaskForm();

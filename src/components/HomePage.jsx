@@ -7,7 +7,7 @@ import CategoryForm from './CategoryForm';
 import TasksForm from './TasksForm';
 import './HomePage.css';
 
-export default function HomePage({ setCategories, categories, searchQuery, times, priorities }) {
+export default function HomePage({ setCategories, categories, searchQuery, times, priorities, uploadImage }) {
     const [loading, setLoading] = useState(true);
     const [showCategoryForm, setShowCategoryForm] = useState(false);
     const [showTaskForm, setShowTaskForm] = useState(false);
@@ -128,6 +128,7 @@ export default function HomePage({ setCategories, categories, searchQuery, times
                         times={times}
                         priorities={priorities}
                         closeTaskForm={closeTaskForm}
+                        uploadImage={uploadImage}
                     />
                 </div>
             )}
@@ -149,7 +150,7 @@ export default function HomePage({ setCategories, categories, searchQuery, times
                                 <div className='category' key={category._id}>
                                     <div className='title'>
                                         <button className='delete-button' onClick={ () => deleteCategory(category) }>&times;</button>
-                                        <h1>{capitalizeFirst(category.name)}</h1>
+                                        <h1 style={{color: 'white'}}>{capitalizeFirst(category.name)}</h1>
                                     </div>
                                     <TasksList category={category} searchQuery={searchQuery} />
                                 </div>

@@ -61,8 +61,7 @@ h1 {
 }
 
 .grid-bounds {
-    max-width: 1000px;
-    height: 800px;
+    width: 100%;
     grid-column: 2;
     grid-row-start: 1;
 }
@@ -71,8 +70,6 @@ h1 {
     display: grid;
     grid-template-columns: 1fr 1fr;
     position: relative;
-    min-height: 100%;
-    max-width: 100%;
 }
 
 /* Horizontal Arrows */
@@ -143,6 +140,7 @@ h1 {
 .title {
     display: flex;
     gap: 1px;
+    cursor: grab;
 }
 
 

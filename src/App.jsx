@@ -6,7 +6,7 @@ import AuthPage from './components/AuthPage';
 import NavBar from './components/NavBar';
 import HomePage from './components/HomePage';
 import TasksDetail from './components/TasksDetail';
-import TaskForm from './components/TasksForm';
+import TasksForm from './components/TasksForm';
 import EditForm from './components/EditForm';
 import CategoryForm from './components/CategoryForm';
 import './App.css';
@@ -35,7 +35,7 @@ function App() {
 		return fetch("https://api.cloudinary.com/v1_1/bissmark/image/upload",{
 			method: "post",
 			body: data
-		}).then(res => res.json())
+    		}).then(res => res.json())
       .catch(err => console.log(err))
 	};
 
@@ -46,9 +46,8 @@ function App() {
           <NavBar user={user} setUser={setUser} categories={categories} setSearchQuery={setSearchQuery} />
           <div className="container">
           <Routes>
-            <Route path="/" element={<HomePage searchQuery={searchQuery} setTasks={setTasks} tasks={tasks} categories={categories} setCategories={setCategories} times={times} priorities={priorities} />} />
-            <Route path="/tasks/new" element={<TaskForm tasks={tasks} setTasks={setTasks} setCategories={setCategories} times={times} priorities={priorities} categories={categories} uploadImage={uploadImage} />} />
-            <Route path="/tasks/:id" element={<TasksDetail tasks={tasks} setTasks={setTasks} />} />
+            <Route path="/" element={<HomePage searchQuery={searchQuery} setTasks={setTasks} tasks={tasks} categories={categories} setCategories={setCategories} times={times} priorities={priorities} uploadImage={uploadImage} />} />
+            <Route path="/tasks/:id" element={<TasksDetail tasks={tasks} setTasks={setTasks} setCategories={setCategories} categories={categories} uploadImage={uploadImage} />} />
             <Route path="/tasks/:id/edit" element={<EditForm categories={categories} setCategories={setCategories} tasks={tasks} times={times} priorities={priorities} uploadImage={uploadImage} />} />
             <Route path="/categories/new" element={<CategoryForm tasks={tasks} categories={categories} setCategories={setCategories} times={times} priorities={priorities} />} />
             <Route path="*" element={<Navigate to="/tasks" />} />

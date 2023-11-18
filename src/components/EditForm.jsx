@@ -9,19 +9,17 @@ import { BiCategory } from "react-icons/bi";
 import { GoImage } from "react-icons/go";
 import './EditForm.css';
 
-const EditForm = ({ tasks, categories, uploadImage }) => {
+const EditForm = ({ tasks, categories, uploadImage, closeEditForm, setTasks, setSingleTask }) => {
     let { id } = useParams();
     const [editedTask, setEditedTask] = useState(null); // Set initial state to null
     const [image, setImage] = useState('');
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const navigate = useNavigate();
-    console.log(tasks);
 
     async function updateTask(task) {
         try {
             const editedTaskResult = await tasksServices.updateTask(task);
-            console.log(editedTaskResult);
             setEditedTask(editedTaskResult);
         } catch (error) {
             setError(error);
@@ -32,26 +30,21 @@ const EditForm = ({ tasks, categories, uploadImage }) => {
     }
 
     useEffect(() => {
-    const fetchTask = async () => {
-        try {
-            const task = tasks.find((n) => n._id === id);
-            if (task) {
-                // Fetch associated tasks for the category
-                const categoryTasks = await categoriesServices.getCategories();
-                
-                task.tasks = categoryTasks;
+        const fetchTask = async () => {
+            try {
+                const taskSingular = await tasksServices.getTaskDetails(id);
+                // const taskCategory = categoriesData.find((category) => category.tasks.some((taskItem) => taskItem._id === task._id));
+                // const taskWithCategory = { ...task, category: taskCategory ? taskCategory.name : '' };
+                setEditedTask(taskSingular);
+            } catch (error) {
+                setError(error);
+                console.log(error);
+            } finally {
+                setLoading(false);
             }
-            setEditedTask(task || { name: '', description: '', category: '', time: '', priority: '', date: '', image: '' });
-        } catch (error) {
-            setError(error);
-            console.log(error);
-        } finally {
-            setLoading(false);
-        }
-    };
-
-    fetchTask();
-}, [tasks, categories, id]);
+        };
+        fetchTask();
+    }, [tasks, categories, id]);
 
     function _handleChange(e) {
         setEditedTask({
@@ -65,17 +58,21 @@ const EditForm = ({ tasks, categories, uploadImage }) => {
         try {
             if (image) {
                 const data = await uploadImage();
+                console.log(editedTask);
                 editedTask.image = data.url;
             } else {
                 setImage('');
+                console.log(editedTask);
             }
             setImage('');
+            setSingleTask(editedTask);
+            console.log(editedTask)
+            updateTask(editedTask);
+            closeEditForm();
         } catch (error) {
             setError(error);
             console.log(error);
         }
-        updateTask(editedTask);
-        navigate(`/tasks/${id}`);
     }
 
     if (loading) {
