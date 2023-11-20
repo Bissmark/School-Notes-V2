@@ -5,7 +5,7 @@ import * as categoriesServices from '../utilities/categories-service';
 import EditForm from './EditForm';
 import './TasksDetail.css';
 
-const TasksDetail = ({ tasks, setTasks, categories, setCategories, uploadImage }) => {
+const TasksDetail = ({ taskId, categories, categoryId }) => {
     const [singleTask, setSingleTask] = useState({
         name: '',
         category: '',
@@ -15,37 +15,33 @@ const TasksDetail = ({ tasks, setTasks, categories, setCategories, uploadImage }
     });
     const [loading, setLoading] = useState(true);
     const [showEditForm, setShowEditForm] = useState(false);
-    const { id } = useParams();
     const navigate = useNavigate();
 
-    useEffect(() => {
-    const fetchTaskDetails = async () => {
-        setLoading(true);
-        try {
-            // Fetch categories first
-            const categoriesData = await categoriesServices.getCategories();
-            setCategories(categoriesData);
+     useEffect(() => {
+        const fetchTaskDetails = async () => {
+            setLoading(true);
+            try {
+                // Fetch categories first
+                const categoriesData = await categoriesServices.getCategories();
 
-            // Fetch task details
-            const task = await tasksServices.getTaskDetails(id);
-            const taskCategory = categoriesData.find((category) => category.tasks.some((taskItem) => taskItem._id === task._id));
-            const taskWithCategory = { ...task, category: taskCategory ? taskCategory.name : '' };
-            setSingleTask(taskWithCategory);
-        } catch (error) {
-            console.error('Error fetching task details:', error);
-        } finally {
-            setLoading(false);
-        }
-    };
+                // Fetch task details based on taskId
+                const task = await tasksServices.getTaskDetails(taskId);
+                const taskCategory = categoriesData.find((category) => category.tasks.some((taskItem) => taskItem._id === task._id));
+                const taskWithCategory = { ...task, category: taskCategory ? taskCategory.name : '' };
+                setSingleTask(taskWithCategory);
+            } catch (error) {
+                console.error('Error fetching task details:', error);
+            } finally {
+                setLoading(false);
+            }
+        };
 
-    fetchTaskDetails();
-}, [id, setCategories]);
+        fetchTaskDetails();
+    }, [taskId]);
 
     async function deleteTask(id) {
         await tasksServices.deleteTask(id);
-        const updatedtasks = tasks.filter((n) => n._id !== id);
-        setTasks(updatedtasks);
-        navigate('/');
+        navigate(`/categories/${categoryId}/tasks`);
     }
 
     const toggleEditForm = () => {
@@ -61,13 +57,9 @@ const TasksDetail = ({ tasks, setTasks, categories, setCategories, uploadImage }
             {showEditForm && ( // Conditionally render CategoryForm
                 <div className="category-form-container-edit">
                     <EditForm
-                        tasks={tasks}
                         categories={categories}
-                        setCategories={setCategories}
-                        setTasks={setTasks}
                         setSingleTask={setSingleTask}
                         closeEditForm={closeEditForm}
-                        uploadImage={uploadImage}
                     />
                 </div>
                 )}
@@ -86,13 +78,11 @@ const TasksDetail = ({ tasks, setTasks, categories, setCategories, uploadImage }
                             <li>Task Description: <p>{singleTask.description}</p></li>
                             <li>Task Category: <p>{singleTask.category}</p></li>
                             <li>Date Created: <p>{new Date(singleTask.createdAt).toLocaleString()}</p></li>
-                            <button className='button-delete' onClick={() => deleteTask(singleTask._id)}>
-                        Delete
-                    </button>
-                    <button className='category-button' onClick={toggleEditForm}>Edit</button>
-                        </ul>
                             <img src={singleTask.image} alt="" />
+                        </ul>
                     </div>
+                            <button className='button-delete' onClick={() => deleteTask(singleTask._id)}>Delete</button>
+                            <button className='category-button' onClick={toggleEditForm}>Edit</button>
                 </>
             )}
         </div>

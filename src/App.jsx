@@ -10,6 +10,7 @@ import TasksForm from './components/TasksForm';
 import EditForm from './components/EditForm';
 import CategoryForm from './components/CategoryForm';
 import './App.css';
+import TasksIndexInsideCategory from './components/TasksIndexInsideCategory';
 
 const times = [
     'Slow',
@@ -50,6 +51,7 @@ function App() {
             <Route path="/tasks/:id" element={<TasksDetail tasks={tasks} setTasks={setTasks} setCategories={setCategories} categories={categories} uploadImage={uploadImage} />} />
             <Route path="/tasks/:id/edit" element={<EditForm categories={categories} setCategories={setCategories} tasks={tasks} times={times} priorities={priorities} uploadImage={uploadImage} />} />
             <Route path="/categories/new" element={<CategoryForm tasks={tasks} categories={categories} setCategories={setCategories} times={times} priorities={priorities} />} />
+            <Route path="categories/:id/tasks" element={<TasksIndexInsideCategory tasks={tasks} setTasks={setTasks} setCategories={setCategories} categories={categories} uploadImage={uploadImage} />} />
             <Route path="*" element={<Navigate to="/tasks" />} />
           </Routes>
           </div>

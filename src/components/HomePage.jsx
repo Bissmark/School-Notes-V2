@@ -5,6 +5,7 @@ import * as categoriesServices from '../utilities/categories-service';
 import Draggable from 'react-draggable';
 import CategoryForm from './CategoryForm';
 import TasksForm from './TasksForm';
+import { IoIosArrowRoundForward } from "react-icons/io";
 import './HomePage.css';
 
 export default function HomePage({ setCategories, categories, searchQuery, times, priorities, uploadImage }) {
@@ -153,6 +154,9 @@ export default function HomePage({ setCategories, categories, searchQuery, times
                                         <h1 style={{color: 'white'}}>{capitalizeFirst(category.name)}</h1>
                                     </div>
                                     <TasksList category={category} searchQuery={searchQuery} />
+                                    <Link to={`/categories/${category._id}/tasks`}>
+                                        <IoIosArrowRoundForward />
+                                    </Link>
                                 </div>
                             </Draggable>
                         ))}
@@ -171,6 +175,9 @@ export default function HomePage({ setCategories, categories, searchQuery, times
                                         <h1>{capitalizeFirst(category.name)}</h1>
                                     </div>
                                     <TasksList category={category} searchQuery={searchQuery} />
+                                    <Link to={`/categories/${category._id}/tasks`}>
+                                        <IoIosArrowRoundForward />
+                                    </Link>
                                 </div>
                             </Draggable>
                         ))}
@@ -189,6 +196,9 @@ export default function HomePage({ setCategories, categories, searchQuery, times
                                         <h1>{capitalizeFirst(category.name)}</h1>
                                     </div>
                                     <TasksList  category={category} searchQuery={searchQuery} />
+                                    <Link to={`/categories/${category._id}/tasks`}>
+                                        <IoIosArrowRoundForward />
+                                    </Link>
                                 </div>
                             </Draggable>
                         ))}
@@ -207,6 +217,9 @@ export default function HomePage({ setCategories, categories, searchQuery, times
                                         <h1>{capitalizeFirst(category.name)}</h1>
                                     </div>
                                     <TasksList category={category} searchQuery={searchQuery} />
+                                    <Link to={`/categories/${category._id}/tasks`}>
+                                        <IoIosArrowRoundForward />
+                                    </Link>
                                 </div>
                             </Draggable>
                         ))}
