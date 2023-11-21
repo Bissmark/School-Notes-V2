@@ -6,3 +6,9 @@ ul {
 li {
     list-style-type: none;
 }
+
+@media screen and (max-width: 600px) {
+    ul {
+        flex-direction: column;
+    }
+}

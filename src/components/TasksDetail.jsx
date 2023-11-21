@@ -1,4 +1,4 @@
-import { useParams, useNavigate, Link } from "react-router-dom"
+import { useNavigate, Link } from "react-router-dom"
 import { useState, useEffect } from "react";
 import * as tasksServices from '../utilities/tasks-service';
 import * as categoriesServices from '../utilities/categories-service';
@@ -77,7 +77,7 @@ const TasksDetail = ({ taskId, categories, categoryId }) => {
                         <ul className="ul-tasks">
                             <li>Task Description: <p>{singleTask.description}</p></li>
                             <li>Task Category: <p>{singleTask.category}</p></li>
-                            <li>Date Created: <p>{new Date(singleTask.createdAt).toLocaleString()}</p></li>
+                            <li style={{marginBottom: '2em'}}>Date Created: <p>{new Date(singleTask.createdAt).toLocaleString()}</p></li>
                             <img src={singleTask.image} alt="" />
                         </ul>
                     </div>

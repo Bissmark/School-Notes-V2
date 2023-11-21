@@ -4,6 +4,7 @@
 }
 
 .task-background {
+    max-width: 25em;
     background-color: #1DCFA2;
     border-radius: 10px;
     box-shadow: 0 0 10px 3px #EC6693;
@@ -90,7 +91,8 @@ li p {
 }
 
 img {
-    max-width: 40%;
+    margin: 0 auto;
+    width: 80%;
     border-radius: 10%;
 }
 
