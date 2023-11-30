@@ -29,6 +29,7 @@ const CategoryForm = ({ categories, setCategories, times, priorities, closeCateg
 
     function _handleSubmit(e) {
         e.preventDefault();
+        //setCategories([...categories, newCategory]);
         addCategory(newCategory);
         setNewCategory({name: '', time: 'Slow', priority: 'Low'});
         closeCategoryForm();

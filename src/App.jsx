@@ -11,6 +11,8 @@ import EditForm from './components/EditForm';
 import CategoryForm from './components/CategoryForm';
 import './App.css';
 import TasksIndexInsideCategory from './components/TasksIndexInsideCategory';
+import LoginForm from './components/LoginForm';
+import SignUpForm from './components/SignUpForm';
 
 const times = [
     'Slow',
@@ -44,14 +46,15 @@ function App() {
     <div>
       { user ?
         <>
-          <NavBar user={user} setUser={setUser} categories={categories} setSearchQuery={setSearchQuery} />
+        <NavBar user={user} setUser={setUser} categories={categories} setSearchQuery={setSearchQuery} />
           <div className="container">
           <Routes>
             <Route path="/" element={<HomePage searchQuery={searchQuery} setTasks={setTasks} tasks={tasks} categories={categories} setCategories={setCategories} times={times} priorities={priorities} uploadImage={uploadImage} />} />
-            <Route path="/tasks/:id/edit" element={<EditForm categories={categories} setCategories={setCategories} tasks={tasks} times={times} priorities={priorities} uploadImage={uploadImage} />} />
+            <Route path="/categories/:id/task/:id/edit" element={<EditForm categories={categories} setCategories={setCategories} tasks={tasks} times={times} priorities={priorities} uploadImage={uploadImage} />} />
             <Route path="/categories/new" element={<CategoryForm tasks={tasks} categories={categories} setCategories={setCategories} times={times} priorities={priorities} />} />
             <Route path="categories/:id/tasks" element={<TasksIndexInsideCategory tasks={tasks} setTasks={setTasks} setCategories={setCategories} categories={categories} uploadImage={uploadImage} />} />
             <Route path="*" element={<Navigate to="/tasks" />} />
+            <Route />
           </Routes>
           </div>
         </>

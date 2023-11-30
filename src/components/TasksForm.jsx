@@ -27,7 +27,7 @@ export default function TaskForm ({categories, uploadImage, setCategories, close
     useEffect(() => {
         const fetchCategories = async () => {
             try {
-                const categoriesRender = await categoriesServices.getCategories(); // Adjust the function call based on your actual data fetching logic
+                const categoriesRender = await categoriesServices.getCategories().then(console.log) // Adjust the function call based on your actual data fetching logic
                 setCategories(categoriesRender);
                 setIsLoading(false);
             } catch (error) {
@@ -83,6 +83,8 @@ export default function TaskForm ({categories, uploadImage, setCategories, close
         e.preventDefault();
         
         try {
+            setIsLoading(true);
+
             if (image) {
                 const data = await uploadImage(image);
                 newTask.image = data.url;
@@ -93,10 +95,12 @@ export default function TaskForm ({categories, uploadImage, setCategories, close
             //setTasks((prevTasks) => [...prevTasks, addedTask]);
             setNewTask({name: '', description: '', time: '', priority: '', date: '', image: ''});
             setImage('');
+            setIsLoading(false);
             closeTaskForm();
             navigate('/');
         } catch (error) {
             console.log(error);
+            setIsLoading(false);
         }
     }
 
@@ -105,7 +109,7 @@ export default function TaskForm ({categories, uploadImage, setCategories, close
             <form onSubmit={ _handleSubmit }>
                 <h1 style={{color: 'white'}}>Add Task</h1>
                 {isLoading ? (
-                    <p>Loading categories...</p>
+                    <p>Loading...</p>
                     ) : (
                 <IconContext.Provider value={{ color: "white", size: "2.5em" }}>
                 <div className="name-field-tasks">
@@ -130,11 +134,13 @@ export default function TaskForm ({categories, uploadImage, setCategories, close
                     <div className="image-field">
                         <GoImage />
                         <input type="file" id="files" className="hidden" onChange={_handleImageChange} />
-                        <label htmlFor="files">Select File</label>
+                        <label style={{whiteSpace: 'nowrap', overflowX: 'hidden'}} htmlFor="files">
+                            { image ? image.name : 'Select File' }
+                        </label>
                     </div>
                 </IconContext.Provider>
                 )}
-                <button style={{marginBottom: '2em', width: '100%'}}>Add Task</button>
+                <button style={{marginBottom: '2em', width: '100%'}} disabled={isLoading}>Add Task</button>
             </form>
         </div>
     );

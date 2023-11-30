@@ -5,7 +5,7 @@ import * as categoriesServices from '../utilities/categories-service';
 import EditForm from './EditForm';
 import './TasksDetail.css';
 
-const TasksDetail = ({ taskId, categories, categoryId }) => {
+const TasksDetail = ({ taskId, categories, categoryId, updateTasks }) => {
     const [singleTask, setSingleTask] = useState({
         name: '',
         category: '',
@@ -41,6 +41,7 @@ const TasksDetail = ({ taskId, categories, categoryId }) => {
 
     async function deleteTask(id) {
         await tasksServices.deleteTask(id);
+        updateTasks();
         navigate(`/categories/${categoryId}/tasks`);
     }
 
@@ -60,9 +61,10 @@ const TasksDetail = ({ taskId, categories, categoryId }) => {
                         categories={categories}
                         setSingleTask={setSingleTask}
                         closeEditForm={closeEditForm}
+                        singleTaskId={singleTask._id}
                     />
                 </div>
-                )}
+            )}
         <div key={singleTask._id} className="task-background">
             {loading ? (
                 <div className="loading">

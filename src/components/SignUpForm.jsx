@@ -7,6 +7,7 @@ import { RiLockPasswordLine } from 'react-icons/ri';
 import { IconContext } from 'react-icons';
 import { RiLockPasswordFill } from 'react-icons/ri';
 import { CgRename } from 'react-icons/cg';
+import { useNavigate } from 'react-router-dom';
 
 export default class SignUpForm extends Component {
   state = {
@@ -14,7 +15,7 @@ export default class SignUpForm extends Component {
     email: '',
     password: '',
     confirm: '',
-    error: ''
+    error: '',
   };
 
   handleChange = (e) => {
@@ -25,6 +26,7 @@ export default class SignUpForm extends Component {
   };
 
   handleSubmit = async (e) => {
+    const navigate = useNavigate();
     e.preventDefault();
     try {
       const {name, email, password} = this.state;

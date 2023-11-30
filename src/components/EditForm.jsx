@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import * as tasksServices from '../utilities/tasks-service';
-import * as categoriesServices from '../utilities/categories-service';
 import { IconContext } from 'react-icons';
 import { MdDriveFileRenameOutline } from "react-icons/md";
 import { MdOutlineDescription } from "react-icons/md";
@@ -9,7 +8,7 @@ import { BiCategory } from "react-icons/bi";
 import { GoImage } from "react-icons/go";
 import './EditForm.css';
 
-const EditForm = ({ tasks, categories, uploadImage, closeEditForm, setTasks, setSingleTask }) => {
+const EditForm = ({ categories, uploadImage, closeEditForm, setSingleTask, singleTaskId }) => {
     let { id } = useParams();
     const [editedTask, setEditedTask] = useState(null); // Set initial state to null
     const [image, setImage] = useState('');
@@ -30,21 +29,36 @@ const EditForm = ({ tasks, categories, uploadImage, closeEditForm, setTasks, set
     }
 
     useEffect(() => {
-        const fetchTask = async () => {
-            try {
-                const taskSingular = await tasksServices.getTaskDetails(id);
-                // const taskCategory = categoriesData.find((category) => category.tasks.some((taskItem) => taskItem._id === task._id));
-                // const taskWithCategory = { ...task, category: taskCategory ? taskCategory.name : '' };
-                setEditedTask(taskSingular);
-            } catch (error) {
-                setError(error);
-                console.log(error);
-            } finally {
-                setLoading(false);
-            }
-        };
-        fetchTask();
-    }, [tasks, categories, id]);
+    const fetchTask = async () => {
+        try {
+            const taskSingular = await tasksServices.getTaskDetails(id);
+            
+            // Find the category that contains the task with the matching ID
+            const categoryWithTask = categories.find(category =>
+                category.tasks.some(taskItem => { 
+                    //console.log(taskItem._id, singleTaskId)
+                    return taskItem._id === singleTaskId
+                })
+            );
+
+            const specificTask = categoryWithTask.tasks.find(task => task._id === singleTaskId);
+            
+            // Set the editedTask with the category name
+            setEditedTask({
+                ...taskSingular,
+                name: specificTask.name,
+                description: specificTask.description,
+                category: categoryWithTask ? categoryWithTask.name : ''
+            });
+        } catch (error) {
+            setError(error);
+            console.log(error);
+        } finally {
+            setLoading(false);
+        }
+    };
+    fetchTask();
+}, [singleTaskId, categories]);
 
     function _handleChange(e) {
         setEditedTask({
