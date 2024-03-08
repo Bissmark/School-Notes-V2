@@ -7,7 +7,6 @@ import { RiLockPasswordLine } from 'react-icons/ri';
 import { IconContext } from 'react-icons';
 import { RiLockPasswordFill } from 'react-icons/ri';
 import { CgRename } from 'react-icons/cg';
-import { useNavigate } from 'react-router-dom';
 
 const SignUpForm = ({ setUser, showSignup, setShowSignup }) => {
     const [userData, setUserData] = useState({
@@ -17,7 +16,6 @@ const SignUpForm = ({ setUser, showSignup, setShowSignup }) => {
         confirm: '',
         error: ''
     });
-    const navigate = useNavigate();
     const [error, setError] = useState('');
 
     const handleChange = (e) => {
@@ -33,8 +31,6 @@ const SignUpForm = ({ setUser, showSignup, setShowSignup }) => {
         try {
             const user = await signUp(userData);
             setUser(user);
-            console.log('user', user);
-            navigate('/');
         } catch {
             setError('Sign Up Failed - Try Again');
         }

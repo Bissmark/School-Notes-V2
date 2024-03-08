@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import * as usersService from '../utilities/users-service';
+import { login } from '../utilities/users-service';
 import './LoginForm.css';
 import { Link } from 'react-router-dom';
 import { AiOutlineMail } from 'react-icons/ai';
@@ -21,7 +21,7 @@ export default function LoginForm({ setUser, showSignup, setShowSignup }) {
   async function handleSubmit(e) {
     e.preventDefault();
     try {
-      const user = await usersService.login(credentials);
+      const user = await login(credentials);
       setUser(user);
     } catch {
       setError('Log In Failed - Try Again');
@@ -36,7 +36,7 @@ export default function LoginForm({ setUser, showSignup, setShowSignup }) {
         <form autoComplete="off" onSubmit={handleSubmit}>
           <div className='email'>
             <AiOutlineMail />
-            <input type="text" name="email" value={credentials.email} onChange={handleChange} required placeholder='Email'/>
+            <input type="email" name="email" value={credentials.email} onChange={handleChange} required placeholder='Email'/>
           </div>
           <div className='password'>
             <RiLockPasswordLine />
