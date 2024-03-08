@@ -37,7 +37,7 @@ const TasksDetail = ({ taskId, categories, categoryId, updateTasks }) => {
         };
 
         fetchTaskDetails();
-    }, [taskId]);
+    }, [taskId, singleTask._id]);
 
     async function deleteTask(id) {
         await tasksServices.deleteTask(id);
@@ -55,16 +55,7 @@ const TasksDetail = ({ taskId, categories, categoryId, updateTasks }) => {
 
     return (
         <div className="edit-page-grid">
-            {showEditForm && ( // Conditionally render CategoryForm
-                <div className="category-form-container-edit">
-                    <EditForm
-                        categories={categories}
-                        setSingleTask={setSingleTask}
-                        closeEditForm={closeEditForm}
-                        singleTaskId={singleTask._id}
-                    />
-                </div>
-            )}
+            
         <div key={singleTask._id} className="task-background">
             {loading ? (
                 <div className="loading">
@@ -76,6 +67,16 @@ const TasksDetail = ({ taskId, categories, categoryId, updateTasks }) => {
                 
                     <h1>{singleTask.name}</h1>
                     <div className="details-page">
+                        {showEditForm && ( // Conditionally render CategoryForm
+                            <div className="category-form-container-edit">
+                                <EditForm
+                                    categories={categories}
+                                    setSingleTask={setSingleTask}
+                                    closeEditForm={closeEditForm}
+                                    singleTaskId={singleTask._id}
+                                />
+                            </div>
+                        )}
                         <ul className="ul-tasks">
                             <li>Task Description: <p>{singleTask.description}</p></li>
                             <li>Task Category: <p>{singleTask.category}</p></li>

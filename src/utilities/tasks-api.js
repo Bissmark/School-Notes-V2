@@ -18,8 +18,8 @@ export async function deleteTask(id) {
     return sendRequest(`${ BASE_URL }/${ id }`, 'DELETE');
 }
 
-export async function updateTask(task) {
-    return sendRequest(`${ BASE_URL }/${ task._id }`, 'PUT', task);
+export async function updateTask(id, taskText) {
+    return sendRequest(`${ BASE_URL }/${ id }`, 'PUT', taskText);
 }
 
 // AddTaskToCategory

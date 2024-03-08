@@ -1,14 +1,59 @@
 .edit-form {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
     max-width: 25em;
     background-color: #EC6693;
-    margin: 0 auto;
+    /* margin: 0 auto; */
     border-radius: 10px;
     box-shadow: 0 0 10px 3px #FE6971;
     padding: 20px;
-    margin-top: 20em;
-    grid-column: 3;
+}
+
+.name-field-tasks-edit {
+    display: flex;
+    border: 1px solid #b2b2b2;
+    width: 13em;
+    border-radius: 5px; /* rounds the corners */
+    margin-bottom: 2em;
+}
+
+.name-field-tasks-edit input {
+    border: none; /* removes the border */
+    outline: none; /* removes the blue outline when clicked */
+    padding: 10px;  /* So the placeholder doesnt start bumped up against the border-left */
+    width: 12.5em;
+    border-left: 1px solid #b2b2b2;
+}
+
+.description-field-edit {
+    display: flex;
+    border: 1px solid #b2b2b2;
+    width: 13em;
+    border-radius: 5px; /* rounds the corners */
+    margin-bottom: 2em;
+}
+
+.description-field-edit input {
+    border: none; /* removes the border */
+    outline: none; /* removes the blue outline when clicked */
+    padding: 10px;  /* So the placeholder doesnt start bumped up against the border-left */
+    width: 12.5em;
+    border-left: 1px solid #b2b2b2;
+}
+
+.category-field-edit {
+    display: flex;
+    width: 13em;
+    border: 1px solid #b2b2b2;
+    border-radius: 5px;
+    margin-bottom: 2em;
+}
+
+.image-field-edit {
+    display: flex;
+    /* justify-content: space-between; */
+    align-items: center;
+    width: 13em;
+    border: 1px solid #b2b2b2;
+    border-radius: 5px;
+    margin-bottom: 2em;
+    position: relative;
 }

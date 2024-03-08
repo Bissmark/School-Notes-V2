@@ -175,9 +175,11 @@ export default function HomePage({ setCategories, categories, searchQuery, times
                                         <h1>{capitalizeFirst(category.name)}</h1>
                                     </div>
                                     <TasksList category={category} searchQuery={searchQuery} />
+                                    {category.tasks.length > 0 && (
                                     <Link to={`/categories/${category._id}/tasks`}>
                                         <IoIosArrowRoundForward />
                                     </Link>
+                                    )}
                                 </div>
                             </Draggable>
                         ))}

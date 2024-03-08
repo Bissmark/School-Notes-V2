@@ -25,8 +25,8 @@ export async function deleteTask(id) {
 }
 
 // Update
-export async function updateTask(id) {
-    const task = await tasksAPI.updateTask(id);
+export async function updateTask(id, taskText) {
+    const task = await tasksAPI.updateTask(id, taskText);
     return task;
 }
 

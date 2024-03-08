@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import * as tasksServices from '../utilities/tasks-service';
 import { IconContext } from 'react-icons';
 import { MdDriveFileRenameOutline } from "react-icons/md";
@@ -14,11 +14,12 @@ const EditForm = ({ categories, uploadImage, closeEditForm, setSingleTask, singl
     const [image, setImage] = useState('');
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const navigate = useNavigate();
-
-    async function updateTask(task) {
+    const [categoryWithTask, setCategoryWithTask] = useState(null); // Set initial state to null
+    
+    async function updateTask(id, task) {
         try {
-            const editedTaskResult = await tasksServices.updateTask(task);
+            //const taskId = task._id;
+            const editedTaskResult = await tasksServices.updateTask(id, task);
             setEditedTask(editedTaskResult);
         } catch (error) {
             setError(error);
@@ -29,36 +30,38 @@ const EditForm = ({ categories, uploadImage, closeEditForm, setSingleTask, singl
     }
 
     useEffect(() => {
-    const fetchTask = async () => {
-        try {
-            const taskSingular = await tasksServices.getTaskDetails(id);
-            
-            // Find the category that contains the task with the matching ID
-            const categoryWithTask = categories.find(category =>
-                category.tasks.some(taskItem => { 
-                    //console.log(taskItem._id, singleTaskId)
-                    return taskItem._id === singleTaskId
-                })
-            );
+        const fetchTask = async () => {
+            setLoading(true);
+            try {
+                const taskSingular = await tasksServices.getTaskDetails(id);
 
-            const specificTask = categoryWithTask.tasks.find(task => task._id === singleTaskId);
-            
-            // Set the editedTask with the category name
-            setEditedTask({
-                ...taskSingular,
-                name: specificTask.name,
-                description: specificTask.description,
-                category: categoryWithTask ? categoryWithTask.name : ''
-            });
-        } catch (error) {
-            setError(error);
-            console.log(error);
-        } finally {
-            setLoading(false);
-        }
-    };
-    fetchTask();
-}, [singleTaskId, categories]);
+                // Find the category that contains the task with the matching ID
+                const category = categoryWithTask || categories.find(category =>
+                    category.tasks.some(taskItem => taskItem._id === singleTaskId)
+                );
+
+                if (category) {
+                    // Set the editedTask with the category name
+                    const specificTask = category.tasks.find(task => task._id === singleTaskId);
+                    setEditedTask({
+                        ...taskSingular,
+                        name: specificTask.name,
+                        description: specificTask.description,
+                        category: category ? category.name : ''
+                    });
+                    setCategoryWithTask(category);
+                } else {
+                    setError(new Error("Category not found"));
+                }
+            } catch (error) {
+                setError(error);
+                console.log(error);
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchTask();
+    }, [singleTaskId, categories, categoryWithTask]);
 
     function _handleChange(e) {
         setEditedTask({
@@ -68,26 +71,28 @@ const EditForm = ({ categories, uploadImage, closeEditForm, setSingleTask, singl
     }
 
     async function _handleSubmit(e) {
-        e.preventDefault();
-        try {
-            if (image) {
-                const data = await uploadImage();
-                console.log(editedTask);
-                editedTask.image = data.url;
-            } else {
-                setImage('');
-                console.log(editedTask);
-            }
+    e.preventDefault();
+    try {
+        let updatedTask = { ...editedTask };
+
+        if (image) {
+            const data = await uploadImage();
+            updatedTask.image = data.url;
+        } else {
             setImage('');
-            setSingleTask(editedTask);
-            console.log(editedTask)
-            updateTask(editedTask);
-            closeEditForm();
-        } catch (error) {
-            setError(error);
-            console.log(error);
         }
+
+        // Pass the task ID and updated task data to updateTask
+        await updateTask(singleTaskId, updatedTask);
+
+        setSingleTask(updatedTask);  // Use updatedTask instead of editedTask
+        closeEditForm();
+        setEditedTask(null);
+    } catch (error) {
+        setError(error);
+        console.log(error);
     }
+}
 
     if (loading) {
         return <p>Loading...</p>;
@@ -102,15 +107,15 @@ const EditForm = ({ categories, uploadImage, closeEditForm, setSingleTask, singl
             <form onSubmit={ _handleSubmit }>
                 <h1>Edit Form</h1>
                 <IconContext.Provider value={{ color: "white", size: "2.5em" }}>
-                <div className="name-field-tasks">
+                <div className="name-field-tasks-edit">
                     <MdDriveFileRenameOutline />
                     <input type="text" name="name" value={editedTask.name}  onChange={_handleChange} required />
                 </div>
-                <div className="description-field">
+                <div className="description-field-edit">
                     <MdOutlineDescription />
                     <input type="text" name="description" value={editedTask.description}  onChange={_handleChange} required />
                 </div>
-                <div className="category-field">
+                <div className="category-field-edit">
                     <BiCategory />
                     <select name="category" value={editedTask.category} onChange={_handleChange }>
                         {categories.map((category, index) => (
@@ -118,7 +123,7 @@ const EditForm = ({ categories, uploadImage, closeEditForm, setSingleTask, singl
                         ))}
                     </select>    
                 </div>
-                <div className="image-field">
+                <div className="image-field-edit">
                         <GoImage />
                         <input type="file" id="files" className="hidden" onChange={(e) => setImage(e.target.files[0])} />
                         <label htmlFor="files">Select File</label>
