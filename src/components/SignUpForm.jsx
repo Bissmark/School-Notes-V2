@@ -33,6 +33,7 @@ const SignUpForm = ({ setUser, showSignup, setShowSignup }) => {
         try {
             const user = await signUp(userData);
             setUser(user);
+            console.log('user', user);
             navigate('/');
         } catch {
             setError('Sign Up Failed - Try Again');
