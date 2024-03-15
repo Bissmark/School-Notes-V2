@@ -36,7 +36,7 @@ const SignUpForm = ({ setUser, showSignup, setShowSignup }) => {
         }
     }
 
-    const disable = userData.password !== userData.confirm;
+    //const disable = userData.password !== userData.confirm;
 
     return (
         <IconContext.Provider value={{ color: "white", size: "2.5em" }}>
@@ -60,11 +60,11 @@ const SignUpForm = ({ setUser, showSignup, setShowSignup }) => {
                             <RiLockPasswordFill />
                             <input type="password" name="confirm" value={userData.confirm} onChange={handleChange} required placeholder='Password Confirm' />
                         </div>
-                        <button className='signup-button' type="submit" disabled={disable}>SIGN UP</button>
+                        <button className='signup-button' type="submit">SIGN UP</button>
                     </form>
                     <p>Already have an account and want to login, click <Link onClick={() => setShowSignup(!showSignup)}>here</Link></p>
                 </div>
-                <p className="error-message">&nbsp;{error}</p>
+                <p className="error-message">{error}</p>
             </div>
         </IconContext.Provider>
     );
